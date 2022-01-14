@@ -43,6 +43,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 64,
                 ),
                 const SizedBox(height: 64),
+                // profile pic
+                Stack(
+                  children: [
+                    //circleavatar
+                    const CircleAvatar(
+                      radius: 64,
+                      backgroundImage:
+                          NetworkImage('https://i.pravatar.cc/300'),
+                    ),
+                    Positioned(
+                      bottom: -10,
+                      right: 0,
+                      child: IconButton(
+                        icon: const Icon(Icons.add_a_photo),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
                 TextFieldInput(
                   hintText: 'User Name',
                   textEditingController: _usernameController,
