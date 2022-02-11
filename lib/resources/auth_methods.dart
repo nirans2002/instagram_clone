@@ -19,6 +19,7 @@ class AuthMethods {
     String res = 'some error occured';
 
     try {
+  
       if (email.isNotEmpty ||
           password.isNotEmpty ||
           userName.isNotEmpty ||
@@ -30,7 +31,7 @@ class AuthMethods {
 
         String photoURL = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
-
+                        
         //add user
         await _firestore.collection('user').doc(cred.user!.uid).set({
           'uid': cred.user!.uid,

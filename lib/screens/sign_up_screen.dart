@@ -43,6 +43,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       _isLoading = true;
     });
+    // String sample_prof_pic =
+    //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+
+    // // _image == null ? _image == sample_prof_pic : _image;
+    // if (_image == null) {
+    //   showSnackBar('Add a profile picture', context);
+    // }
     String res = await AuthMethods().signUpUser(
       userName: _usernameController.text,
       email: _emailController.text,
@@ -90,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         : const CircleAvatar(
                             radius: 64,
                             backgroundImage: NetworkImage(
-                                'https://cdn-icons.flaticon.com/png/512/2102/premium/2102633.png?token=exp=1642238674~hmac=deb37a432d5ba64eb913b25054a37138'),
+                                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"),
                           ),
                     Positioned(
                       bottom: -10,
@@ -139,7 +146,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onTap: signUpUser,
                   child: Container(
                     child: _isLoading
-                        ? const Center(child: CircularProgressIndicator())
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ))
                         : const Text(
                             'Sign Up',
                             style: TextStyle(
