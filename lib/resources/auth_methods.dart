@@ -19,7 +19,6 @@ class AuthMethods {
     String res = 'some error occured';
 
     try {
-  
       if (email.isNotEmpty ||
           password.isNotEmpty ||
           userName.isNotEmpty ||
@@ -31,7 +30,7 @@ class AuthMethods {
 
         String photoURL = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
-                        
+
         //add user
         await _firestore.collection('user').doc(cred.user!.uid).set({
           'uid': cred.user!.uid,
@@ -44,8 +43,7 @@ class AuthMethods {
         });
         res = 'success';
       }
-    } 
-    on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         res = 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
@@ -55,8 +53,33 @@ class AuthMethods {
       } else {
         res = e.code;
       }
+    } catch (e) {
+      res = e.toString();
     }
-    catch (e) {
+    return res;
+  }
+
+// login userName
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = "Some errr occured";
+    try {
+      if (email.isNotEmpty || password.isNotEmpty) {
+        _auth.signInWithEmailAndPassword(email: email, password: password);
+        res = "succes";
+      } else {
+        res = "Please enter email and password";
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        res = 'User with this email not found';
+      }
+      if (e.code == 'wrong-password') {
+        res = 'Wrong password provided for this user';
+      }
+    } catch (e) {
       res = e.toString();
     }
     return res;
