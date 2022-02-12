@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/responsive/mobile_screen_layout.dart';
+import 'package:instagram_clone/responsive/responsive_layout.dart';
+import 'package:instagram_clone/responsive/web_screen_layout.dart';
 import 'package:instagram_clone/screens/sign_up_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/utils.dart';
@@ -38,6 +41,15 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     if (res == 'success') {
       showSnackBar('login Successfull', context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveScreenLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
     } else {
       showSnackBar('Login failed', context);
     }
