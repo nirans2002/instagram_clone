@@ -1,13 +1,11 @@
-import 'dart:typed_data';
-
 class User {
   final String uid;
   final String username;
   final String email;
   final String bio;
   final String profileImage;
-  final List followers;
-  final List following;
+  final Map followers;
+  final Map following;
 
   const User({
     required this.uid,
@@ -28,5 +26,14 @@ class User {
         'followers': followers,
         'following': following,
       };
- 
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        username: json["username"],
+        uid: json["uid"],
+        email: json["email"],
+        profileImage: json["profileImage"],
+        bio: json["bio"],
+        followers: json["followers"],
+        following: json["following"],
+      );
 }
