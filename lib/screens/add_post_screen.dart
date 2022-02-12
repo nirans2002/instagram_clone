@@ -4,8 +4,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone/models/user_model.dart';
+import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({Key? key}) : super(key: key);
@@ -19,8 +22,22 @@ class _AddPostScreenState extends State<AddPostScreen> {
   bool isLoading = false;
   final TextEditingController _descriptionController = TextEditingController();
 
-  //slect image
+//create post
+  void postImage(
+    String uid, 
+    String username,
+    String profileImage,
+    String description,
+  )async {
+    try{
+      
+    }
+    catch(e){
+      print(e);
+    }
+  }
 
+  //select image
   _selectImage(BuildContext context) async {
     return showDialog(
         context: context,
@@ -52,13 +69,28 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   });
                 },
               ),
+              // cancel
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ],
           );
         });
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _descriptionController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Center(
             child: IconButton(
@@ -72,7 +104,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               title: const Text(' Post to'),
               actions: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: postImage,
                     child: const Text(
                       "Post",
                       style: TextStyle(
@@ -95,9 +127,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   children: <Widget>[
                     CircleAvatar(
                       backgroundImage: NetworkImage(
-                          "https://media.istockphoto.com/photos/close-up-of-small-blue-gray-mobile-home-with-a-front-and-side-porch-picture-id1297687835?b=1&k=20&m=1297687835&s=170667a&w=0&h=Kj4yvWxQxYo_fc9801IJZrHCAXa06LNsiRLjovVfoQQ="
-                          // userProvider.getUser.photoUrl,
-                          ),
+                        user.profileImage,
+                      ),
                     ),
                     SizedBox(
                       width: 250.0,
@@ -116,13 +147,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         aspectRatio: 487 / 451,
                         child: Container(
                           decoration: BoxDecoration(
-                              image: DecorationImage(
-                            fit: BoxFit.fill,
-                            alignment: FractionalOffset.topCenter,
-                            // image: MemoryImage(_file!),
-                            image: NetworkImage(
-                                'https://media.istockphoto.com/photos/close-up-of-small-blue-gray-mobile-home-with-a-front-and-side-porch-picture-id1297687835?b=1&k=20&m=1297687835&s=170667a&w=0&h=Kj4yvWxQxYo_fc9801IJZrHCAXa06LNsiRLjovVfoQQ='),
-                          )),
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              alignment: FractionalOffset.topCenter,
+                              image: MemoryImage(_file!),
+                            ),
+                          ),
                         ),
                       ),
                     ),
