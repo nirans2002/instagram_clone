@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/models/user_model.dart' as model;
-import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/utils/colors.dart';
-import 'package:provider/provider.dart';
+import 'package:instagram_clone/utils/global_var.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -49,13 +45,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         // physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: [
-          Text("feed"),
-          Text("search"),
-          Text("add"),
-          Text("star"),
-          Text("profile"),
-        ],
+        children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
