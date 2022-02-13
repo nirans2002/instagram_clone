@@ -2,9 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({Key? key}) : super(key: key);
+  final snap;
+  const PostCard({
+    Key? key,
+    required this.snap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,7 @@ class PostCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 16,
-                  backgroundImage: NetworkImage(
-                      'https://media.istockphoto.com/photos/first-person-point-of-view-of-a-woman-paddling-on-a-stand-up-paddle-picture-id1288844330?b=1&k=20&m=1288844330&s=170667a&w=0&h=nckXG0H5kPDbgDpC8iTObsiqG7Jwt6CeLuJ2WxdOTp4='),
+                  backgroundImage: NetworkImage(snap['profileImage']),
                 ),
                 Expanded(
                     child: Padding(
@@ -35,7 +39,7 @@ class PostCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Username',
+                        snap['username'],
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -80,7 +84,7 @@ class PostCard extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.4,
             width: double.infinity,
             child: Image.network(
-              "https://media.istockphoto.com/photos/first-person-point-of-view-of-a-woman-paddling-on-a-stand-up-paddle-picture-id1288844330?b=1&k=20&m=1288844330&s=170667a&w=0&h=nckXG0H5kPDbgDpC8iTObsiqG7Jwt6CeLuJ2WxdOTp4=",
+              snap['postUrl'],
               fit: BoxFit.cover,
             ),
           ),
@@ -129,7 +133,7 @@ class PostCard extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                       ),
                   child: Text(
-                    "123 likes",
+                    "${snap['likes'].length} likes",
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
@@ -143,13 +147,13 @@ class PostCard extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: "username  ",
+                          text: "${snap['username']}  ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
-                          text: "hey this is des fro post",
+                          text: snap['description'],
                         ),
                       ],
                     ),
@@ -173,7 +177,9 @@ class PostCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Text(
-              '22/12/2021',
+              DateFormat.yMMMd().format(
+                snap['datePublished'].toDate(),
+              ),
               style: TextStyle(
                 color: secondaryColor,
                 fontSize: 10,
