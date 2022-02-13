@@ -34,7 +34,6 @@ class _LikeAnimationState extends State<LikeAnimation>
 
   @override
   void didUpdateWidget(covariant LikeAnimation oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
 
     if (widget.isAnimating != oldWidget.isAnimating) {
