@@ -198,4 +198,4 @@ class _AddPostScreenState extends State<AddPostScreen> {
   }
 }
 
-// TODO: 3:10 selecting image
+// TODO: 3:44 feed posts ui
